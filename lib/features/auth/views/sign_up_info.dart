@@ -1,27 +1,35 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_auth_app/features/home/views/home.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:flutter_auth_app/models/user_model.dart';
+
 import '../../../common/colors.dart';
 import '../../../common/paths.dart';
 import '../controller/auth_controller.dart';
-import 'sign_up.dart';
 
-class SignIn extends StatefulWidget {
-  const SignIn({super.key});
+class SignUpInfo extends StatefulWidget {
+  const SignUpInfo({
+    Key? key,
+    required this.email,
+  }) : super(key: key);
+  final String email;
 
   @override
-  State<SignIn> createState() => _SignInState();
+  State<SignUpInfo> createState() => _SignUpInfoState();
 }
 
-class _SignInState extends State<SignIn> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+class _SignUpInfoState extends State<SignUpInfo> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _surnameController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   @override
   void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
+    _nameController.dispose();
+    _surnameController.dispose();
+    _usernameController.dispose();
     super.dispose();
   }
 
@@ -36,7 +44,7 @@ class _SignInState extends State<SignIn> {
             width: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(signInImage),
+                image: AssetImage(profileInfoImage),
                 fit: BoxFit.cover,
               ),
             ),
@@ -66,7 +74,7 @@ class _SignInState extends State<SignIn> {
                         ),
                         alignment: Alignment.centerLeft,
                         child: const Text(
-                          "Sign In",
+                          "Sign Up",
                           style: TextStyle(
                             color: titleColor,
                             fontSize: 24,
@@ -76,15 +84,15 @@ class _SignInState extends State<SignIn> {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5),
                         child: TextFormField(
-                          controller: _emailController,
+                          controller: _nameController,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "Email is required";
+                              return "Name is required";
                             }
                             return null;
                           },
                           decoration: InputDecoration(
-                            labelText: "Email",
+                            labelText: "Name",
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4),
                               borderSide: const BorderSide(
@@ -97,16 +105,36 @@ class _SignInState extends State<SignIn> {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5),
                         child: TextFormField(
-                          controller: _passwordController,
-                          obscureText: true,
+                          controller: _surnameController,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "Password is required";
+                              return "Surname is required";
                             }
                             return null;
                           },
                           decoration: InputDecoration(
-                            labelText: "Password",
+                            labelText: "Surname",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4),
+                              borderSide: const BorderSide(
+                                color: borderColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: TextFormField(
+                          controller: _usernameController,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Username is required";
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            labelText: "Username",
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4),
                               borderSide: const BorderSide(
@@ -125,14 +153,17 @@ class _SignInState extends State<SignIn> {
                             child: MaterialButton(
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
+                                  UserModel userModel = UserModel(
+                                      name: _nameController.text,
+                                      surname: _surnameController.text,
+                                      email: widget.email,
+                                      username: _usernameController.text);
+
                                   ref
                                       .read(authControllerProvider)
-                                      .signInWithEmailAndPassword(
-                                        email: _emailController.text,
-                                        password: _passwordController.text,
-                                      )
-                                      .then(
-                                        (value) => Navigator.pushAndRemoveUntil(
+                                      .storeUserInfoToFirebase(userModel)
+                                      .whenComplete(
+                                        () => Navigator.pushAndRemoveUntil(
                                             context,
                                             MaterialPageRoute(
                                               builder: (_) => const Home(),
@@ -144,14 +175,14 @@ class _SignInState extends State<SignIn> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(4),
                               ),
-                              color: signInButtonColor,
+                              color: continueButtonColor,
                               minWidth: double.infinity,
                               child: const Padding(
                                 padding: EdgeInsets.symmetric(
                                   vertical: 10,
                                 ),
                                 child: Text(
-                                  "Sign In",
+                                  "Sign Up",
                                   style: TextStyle(
                                     color: containerColor,
                                   ),
@@ -160,54 +191,6 @@ class _SignInState extends State<SignIn> {
                             ),
                           );
                         },
-                      ),
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 10,
-                        ),
-                        child: InkWell(
-                          child: const Text(
-                            "Forgot Password ?",
-                            style: TextStyle(
-                              color: textButtonTextColor,
-                              fontSize: 14,
-                            ),
-                          ),
-                          onTap: () {},
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 5,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              "Don't haven't an account ?",
-                              style: TextStyle(
-                                color: textButtonTextColor,
-                                fontSize: 14,
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => const SignUp(),
-                                ),
-                              ),
-                              child: const Text(
-                                "Sign Up",
-                                style: TextStyle(
-                                  color: signInButtonColor,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
                       ),
                     ],
                   ),

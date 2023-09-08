@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_auth_app/common/paths.dart';
 import 'package:flutter_auth_app/features/auth/views/sign_in.dart';
+import 'package:flutter_auth_app/features/auth/views/sign_up_info.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../common/colors.dart';
@@ -34,7 +36,7 @@ class _SignUpState extends State<SignUp> {
             width: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/sign_up.png'),
+                image: AssetImage(signUpImage),
                 fit: BoxFit.cover,
               ),
             ),
@@ -130,21 +132,28 @@ class _SignUpState extends State<SignUp> {
                                         password: _passwordController.text,
                                       )
                                       .then(
-                                        (value) => Navigator.pop(context),
+                                        (value) => Navigator.pushAndRemoveUntil(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (_) => SignUpInfo(
+                                                email: _emailController.text,
+                                              ),
+                                            ),
+                                            (route) => false),
                                       );
                                 }
                               },
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(4),
                               ),
-                              color: buttonColor,
+                              color: continueButtonColor,
                               minWidth: double.infinity,
                               child: const Padding(
                                 padding: EdgeInsets.symmetric(
                                   vertical: 10,
                                 ),
                                 child: Text(
-                                  "Sign Up",
+                                  "Continue",
                                   style: TextStyle(
                                     color: containerColor,
                                   ),
