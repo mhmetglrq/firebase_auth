@@ -77,7 +77,7 @@ class Profile extends ConsumerWidget {
                             child: Text(
                               "Edit Profile",
                               style: TextStyle(
-                                color: containerColor,
+                                color: whiteColor,
                               ),
                             ),
                           ),

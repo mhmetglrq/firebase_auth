@@ -48,7 +48,7 @@ class _SignUpState extends State<SignUp> {
                 15,
               ),
               decoration: const BoxDecoration(
-                color: containerColor,
+                color: scaffoldBGColor,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
@@ -68,7 +68,7 @@ class _SignUpState extends State<SignUp> {
                         child: const Text(
                           "Sign Up",
                           style: TextStyle(
-                            color: titleColor,
+                            color: whiteColor,
                             fontSize: 24,
                           ),
                         ),
@@ -84,7 +84,12 @@ class _SignUpState extends State<SignUp> {
                             return null;
                           },
                           decoration: InputDecoration(
-                            labelText: "Email",
+                            fillColor: whiteColor,
+                            filled: true,
+                            hintText: "Email",
+                            hintStyle: const TextStyle(
+                              color: activeColor,
+                            ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4),
                               borderSide: const BorderSide(
@@ -106,7 +111,12 @@ class _SignUpState extends State<SignUp> {
                             return null;
                           },
                           decoration: InputDecoration(
-                            labelText: "Password",
+                            fillColor: whiteColor,
+                            filled: true,
+                            hintText: "Password",
+                            hintStyle: const TextStyle(
+                              color: activeColor,
+                            ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4),
                               borderSide: const BorderSide(
@@ -146,7 +156,7 @@ class _SignUpState extends State<SignUp> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(4),
                               ),
-                              color: continueButtonColor,
+                              color: activeColor,
                               minWidth: double.infinity,
                               child: const Padding(
                                 padding: EdgeInsets.symmetric(
@@ -155,7 +165,7 @@ class _SignUpState extends State<SignUp> {
                                 child: Text(
                                   "Continue",
                                   style: TextStyle(
-                                    color: containerColor,
+                                    color: whiteColor,
                                   ),
                                 ),
                               ),
@@ -187,7 +197,7 @@ class _SignUpState extends State<SignUp> {
                               child: const Text(
                                 "Sign in",
                                 style: TextStyle(
-                                  color: titleColor,
+                                  color: activeColor,
                                   fontSize: 14,
                                 ),
                               ),

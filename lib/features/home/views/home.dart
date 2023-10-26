@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_auth_app/common/paths.dart';
-import 'package:flutter_auth_app/features/dashboard/views/dashboard.dart';
+import 'package:flutter_auth_app/features/discover/views/discover.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../common/colors.dart';
-import '../../profile/views/profile.dart';
+import '../../bookmark/views/bookmark.dart';
+import '../../browse/views/browse.dart';
+import '../../more/view/more.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -23,8 +24,10 @@ class _HomeState extends State<Home> {
   }
 
   List<Widget> list = [
-    const Dashboard(),
-    const Profile(),
+    const Discover(),
+    const Browse(),
+    const Bookmark(),
+    const More(),
   ];
 
   @override
@@ -32,32 +35,44 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: list[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        selectedLabelStyle: const TextStyle(
-          color: titleColor,
-        ),
-        unselectedLabelStyle: const TextStyle(
-          color: titleColor,
-        ),
         currentIndex: _currentIndex,
         onTap: onTap,
         items: [
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
-              homeDeactiveSvg,
+              discoverSvg,
             ),
             activeIcon: SvgPicture.asset(
-              homeActiveSvg,
+              discoverActiveSvg,
             ),
-            label: "Home",
+            label: "Discover",
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
-              userDeactiveSvg,
+              browseSvg,
             ),
             activeIcon: SvgPicture.asset(
-              userActiveSvg,
+              browseActiveSvg,
             ),
-            label: "Profile",
+            label: "Browse",
+          ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              bookmarkSvg,
+            ),
+            activeIcon: SvgPicture.asset(
+              bookmarkActiveSvg,
+            ),
+            label: "Bookmark",
+          ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              profileSvg,
+            ),
+            activeIcon: SvgPicture.asset(
+              profileActiveSvg,
+            ),
+            label: "More",
           ),
         ],
       ),

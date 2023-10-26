@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'common/colors.dart';
 import 'features/auth/views/sign_in.dart';
 import 'firebase_options.dart';
 
@@ -18,11 +19,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Firebase Auth Demo',
+      title: 'The Bear Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        scaffoldBackgroundColor: scaffoldBGColor,
         useMaterial3: true,
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          unselectedItemColor: greyColor,
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: bottomNavigationBGColor,
+        ),
       ),
       home: const SignIn(),
     );
