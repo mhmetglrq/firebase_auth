@@ -1,6 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter_auth_app/features/home/views/home.dart';
+import 'package:flutter_auth_app/router/route_names.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:flutter_auth_app/models/user_model.dart';
@@ -9,18 +8,18 @@ import '../../../common/colors.dart';
 import '../../../common/paths.dart';
 import '../controller/auth_controller.dart';
 
-class SignUpInfo extends StatefulWidget {
-  const SignUpInfo({
+class SignUpContinue extends StatefulWidget {
+  const SignUpContinue({
     Key? key,
     required this.email,
   }) : super(key: key);
   final String email;
 
   @override
-  State<SignUpInfo> createState() => _SignUpInfoState();
+  State<SignUpContinue> createState() => _SignUpContinueState();
 }
 
-class _SignUpInfoState extends State<SignUpInfo> {
+class _SignUpContinueState extends State<SignUpContinue> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _surnameController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
@@ -46,7 +45,7 @@ class _SignUpInfoState extends State<SignUpInfo> {
               width: double.infinity,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(profileInfoImage),
+                  image: AssetImage(signUpContinueImage),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -180,12 +179,11 @@ class _SignUpInfoState extends State<SignUpInfo> {
                                         .read(authControllerProvider)
                                         .storeUserInfoToFirebase(userModel)
                                         .whenComplete(
-                                          () => Navigator.pushAndRemoveUntil(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (_) => const Home(),
-                                              ),
-                                              (route) => false),
+                                          () =>
+                                              Navigator.pushNamedAndRemoveUntil(
+                                                  context,
+                                                  AppRouteNames.home,
+                                                  (route) => false),
                                         );
                                   }
                                 },

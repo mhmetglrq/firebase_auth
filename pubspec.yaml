@@ -20,6 +20,9 @@ dependencies:
   firebase_storage: ^11.2.6
   flutter_svg: ^2.0.7
   cached_network_image: ^3.2.3
+  image_picker: ^1.0.4
+  uuid: ^4.2.1
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:

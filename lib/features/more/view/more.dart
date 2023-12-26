@@ -12,6 +12,7 @@ import 'package:flutter_auth_app/common/sizes.dart';
 import 'package:flutter_auth_app/models/user_model.dart';
 
 import '../../../common/colors.dart';
+import '../../../router/route_names.dart';
 import '../../profile/controller/profile_controller.dart';
 
 class More extends ConsumerWidget {
@@ -59,7 +60,13 @@ class More extends ConsumerWidget {
                       ),
                       MenuItem(
                         title: "Write an article!",
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, AppRouteNames.writeArticle,
+                              arguments: {
+                                "currentUser": userModel,
+                              });
+                        },
                         leadingAsset: articleSvg,
                       ),
                       MenuItem(

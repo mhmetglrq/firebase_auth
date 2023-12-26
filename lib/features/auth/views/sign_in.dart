@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_auth_app/features/home/views/home.dart';
+import 'package:flutter_auth_app/router/route_names.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../common/colors.dart';
@@ -38,7 +38,7 @@ class _SignInState extends State<SignIn> {
               width: double.infinity,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(signInImage),
+                  image: AssetImage(signInNewImage),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -145,12 +145,9 @@ class _SignInState extends State<SignIn> {
                                         )
                                         .then(
                                           (value) =>
-                                              Navigator.pushAndRemoveUntil(
+                                              Navigator.pushNamedAndRemoveUntil(
                                                   context,
-                                                  MaterialPageRoute(
-                                                    builder: (_) =>
-                                                        const Home(),
-                                                  ),
+                                                  AppRouteNames.home,
                                                   (route) => false),
                                         );
                                   }
