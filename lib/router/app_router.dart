@@ -8,6 +8,7 @@ import '../features/auth/views/sign_in.dart';
 import '../features/auth/views/sign_up_info.dart';
 import '../features/browse/views/article.dart';
 import '../features/home/views/home.dart';
+import '../features/more/view/your_articles.dart';
 import '../models/article_model.dart';
 
 class AppRouter {
@@ -44,6 +45,9 @@ class AppRouter {
             builder: (_) => Article(
                   article: article,
                 ));
+
+      case AppRouteNames.yourArticles:
+        return MaterialPageRoute(builder: (_) => const YourArticles());
 
       default:
         return MaterialPageRoute(builder: (_) => const SignIn());

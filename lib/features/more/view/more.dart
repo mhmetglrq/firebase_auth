@@ -76,7 +76,10 @@ class More extends ConsumerWidget {
                       ),
                       MenuItem(
                         title: "Your articles",
-                        onTap: () {},
+                        onTap: () => Navigator.pushNamed(
+                          context,
+                          AppRouteNames.yourArticles,
+                        ),
                         leadingAsset: articleSvg,
                       ),
                       MenuItem(

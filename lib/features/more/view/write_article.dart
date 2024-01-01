@@ -43,8 +43,8 @@ class _WriteArticleState extends ConsumerState<WriteArticle> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async => false,
+    return PopScope(
+      canPop: false,
       child: Form(
         autovalidateMode: AutovalidateMode.onUserInteraction,
         key: _formKey,
