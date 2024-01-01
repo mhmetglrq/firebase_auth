@@ -34,8 +34,8 @@ class _SignUpContinueState extends State<SignUpContinue> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async => false,
+    return PopScope(
+      canPop: false,
       child: Scaffold(
         body: Stack(
           alignment: Alignment.bottomCenter,

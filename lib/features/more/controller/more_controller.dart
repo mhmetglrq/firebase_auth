@@ -20,4 +20,8 @@ class MoreController {
   Future<void> writeArticle(ArticleModel model) async {
     await moreRepository.writeArticle(model);
   }
+
+  Stream<List<ArticleModel>> getArticles() {
+    return moreRepository.getArticles();
+  }
 }

@@ -40,4 +40,15 @@ class MoreRepository {
         .doc(subCollectionDocId)
         .set(data);
   }
+
+  Stream<List<ArticleModel>> getArticles() {
+    return firebaseFirestore
+        .collection("users")
+        .doc(auth.currentUser!.uid)
+        .collection("articles")
+        .snapshots()
+        .map((snapshot) => snapshot.docs
+            .map((doc) => ArticleModel.fromMap(doc.data()))
+            .toList());
+  }
 }
