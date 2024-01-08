@@ -1,4 +1,5 @@
 import 'package:flutter_auth_app/features/more/repository/more_repository.dart';
+import 'package:flutter_auth_app/models/user_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../models/article_model.dart';
@@ -23,5 +24,9 @@ class MoreController {
 
   Stream<List<ArticleModel>> getArticles() {
     return moreRepository.getArticles();
+  }
+
+  Future<UserModel> getUser() async {
+    return await moreRepository.getUser();
   }
 }
