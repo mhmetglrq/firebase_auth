@@ -8,6 +8,7 @@ import '../features/auth/views/sign_in.dart';
 import '../features/auth/views/sign_up_info.dart';
 import '../features/browse/views/article.dart';
 import '../features/home/views/home.dart';
+import '../features/more/view/edit_profile.dart';
 import '../features/more/view/your_articles.dart';
 import '../models/article_model.dart';
 
@@ -44,6 +45,14 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (_) => Article(
                   article: article,
+                ));
+
+      case AppRouteNames.editProfile:
+        final arguments = settings.arguments as Map<String, dynamic>;
+        final currentUser = arguments['currentUser'] as UserModel;
+        return MaterialPageRoute(
+            builder: (_) => EditProfile(
+                  currentUser: currentUser,
                 ));
 
       case AppRouteNames.yourArticles:

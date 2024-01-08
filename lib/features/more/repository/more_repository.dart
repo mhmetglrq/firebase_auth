@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_auth_app/models/user_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../models/article_model.dart';
@@ -16,6 +17,14 @@ class MoreRepository {
 
   Future<void> signOut() async {
     await auth.signOut();
+  }
+
+  Future<UserModel> getUser() async {
+    final user = await firebaseFirestore
+        .collection("users")
+        .doc(auth.currentUser!.uid)
+        .get();
+    return UserModel.fromMap(user.data()!);
   }
 
   Future<void> writeArticle(ArticleModel model) async {

@@ -9,6 +9,7 @@ const all10 = EdgeInsets.all(10);
 const all5 = EdgeInsets.all(5);
 
 //Vertical
+const vertical20 = EdgeInsets.symmetric(vertical: 20);
 const vertical10 = EdgeInsets.symmetric(vertical: 10);
 const vertical5 = EdgeInsets.symmetric(vertical: 5);
 

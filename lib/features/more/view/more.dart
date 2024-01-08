@@ -13,7 +13,6 @@ import 'package:flutter_auth_app/models/user_model.dart';
 
 import '../../../common/colors.dart';
 import '../../../router/route_names.dart';
-import '../../profile/controller/profile_controller.dart';
 
 class More extends ConsumerWidget {
   const More({super.key});
@@ -22,7 +21,7 @@ class More extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: FutureBuilder<UserModel>(
-          future: ref.read(profileControllerProvider).getUser(),
+          future: ref.read(moreControllerProvider).getUser(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final userModel = snapshot.data!;
@@ -92,7 +91,11 @@ class More extends ConsumerWidget {
                       ),
                       MenuItem(
                         title: "Edit profile",
-                        onTap: () {},
+                        onTap: () => Navigator.pushNamed(
+                            context, AppRouteNames.editProfile,
+                            arguments: {
+                              "currentUser": userModel,
+                            }),
                         leadingAsset: editProfile,
                       ),
                       MenuItem(

@@ -7,4 +7,5 @@ class AppRouteNames {
   static const String writeArticle = '/write-article';
   static const String article = '/article';
   static const String yourArticles = '/your-articles';
+  static const String editProfile = '/edit-profile';
 }
