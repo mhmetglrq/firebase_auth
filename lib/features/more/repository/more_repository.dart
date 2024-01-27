@@ -60,4 +60,13 @@ class MoreRepository {
             .map((doc) => ArticleModel.fromMap(doc.data()))
             .toList());
   }
+
+  Future<void> updateProfile(UserModel model) async {
+    await firebaseFirestore
+        .collection("users")
+        .doc(auth.currentUser!.uid)
+        .update(
+          model.toMap(),
+        );
+  }
 }
