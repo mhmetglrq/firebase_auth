@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auth_app/common/sizes.dart';
+import 'package:flutter_auth_app/features/more/controller/more_controller.dart';
 import 'package:flutter_auth_app/models/user_model.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../common/colors.dart';
 
@@ -87,11 +89,12 @@ class _EditProfileState extends State<EditProfile> {
                     width: 10,
                   ),
                   Expanded(
-                      child: InputField(
-                    controller: _surnameController,
-                    title: 'Surname',
-                    value: widget.currentUser.surname,
-                  ))
+                    child: InputField(
+                      controller: _surnameController,
+                      title: 'Surname',
+                      value: widget.currentUser.surname,
+                    ),
+                  ),
                 ],
               ),
               InputField(
@@ -154,28 +157,53 @@ class _EditProfileState extends State<EditProfile> {
                   )
                 ],
               ),
-              Padding(
-                padding: vertical10,
-                child: MaterialButton(
-                  onPressed: () {},
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  color: activeColor,
-                  minWidth: double.infinity,
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: 10,
-                    ),
-                    child: Text(
-                      "Sign In",
-                      style: TextStyle(
-                        color: whiteColor,
+              Consumer(
+                builder: (context, ref, child) {
+                  return Padding(
+                    padding: vertical10,
+                    child: MaterialButton(
+                      onPressed: () async {
+                        widget.currentUser.name = _nameController.text;
+                        widget.currentUser.surname = _surnameController.text;
+                        widget.currentUser.email = _emailController.text;
+                        widget.currentUser.username = _usernameController.text;
+                        widget.currentUser.description =
+                            _descriptionController.text;
+                        widget.currentUser.web = _webController.text;
+                        widget.currentUser.stackof = _stackofController.text;
+                        widget.currentUser.github = _githubController.text;
+                        widget.currentUser.linkedin = _linkedinController.text;
+                        widget.currentUser.medium = _mediumController.text;
+
+                        UserModel userModel = widget.currentUser;
+
+                        await ref
+                            .read(moreControllerProvider)
+                            .updateProfile(userModel)
+                            .whenComplete(
+                              () => Navigator.pop(context),
+                            );
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      color: activeColor,
+                      minWidth: double.infinity,
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 10,
+                        ),
+                        child: Text(
+                          "Edit Profile",
+                          style: TextStyle(
+                            color: whiteColor,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              ),
+                  );
+                },
+              )
             ],
           ),
         ),

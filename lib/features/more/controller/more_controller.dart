@@ -6,13 +6,14 @@ import '../../../models/article_model.dart';
 
 final moreControllerProvider = Provider((ref) {
   final moreRepository = ref.watch(moreRepositoryProvider);
-  return MoreController(moreRepository: moreRepository);
+  return MoreController(moreRepository: moreRepository, ref: ref);
 });
 
 class MoreController {
   final MoreRepository moreRepository;
+  final ProviderRef ref;
 
-  MoreController({required this.moreRepository});
+  MoreController({required this.moreRepository, required this.ref});
 
   Future<void> signOut() async {
     await moreRepository.signOut();
@@ -28,5 +29,10 @@ class MoreController {
 
   Future<UserModel> getUser() async {
     return await moreRepository.getUser();
+  }
+
+  Future<void> updateProfile(UserModel model) async {
+    await moreRepository.updateProfile(model);
+    ref.refresh(moreControllerProvider).getUser();
   }
 }
