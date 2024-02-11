@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_auth_app/models/code_model.dart';
 import 'package:flutter_auth_app/models/user_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -36,6 +37,15 @@ class MoreRepository {
         "users", auth.currentUser!.uid, "articles", model.uid, model.toMap());
   }
 
+  Future<void> writeCode(CodeModel model) async {
+    await firebaseFirestore
+        .collection("codes")
+        .doc(model.uid)
+        .set(model.toMap());
+    await addSubCollection(
+        "users", auth.currentUser!.uid, "codes", model.uid, model.toMap());
+  }
+
   Future<void> addSubCollection(
       String collectionName,
       String docId,
@@ -59,6 +69,16 @@ class MoreRepository {
         .map((snapshot) => snapshot.docs
             .map((doc) => ArticleModel.fromMap(doc.data()))
             .toList());
+  }
+
+  Stream<List<CodeModel>> getCodes() {
+    return firebaseFirestore
+        .collection("users")
+        .doc(auth.currentUser!.uid)
+        .collection("codes")
+        .snapshots()
+        .map((snapshot) =>
+            snapshot.docs.map((doc) => CodeModel.fromMap(doc.data())).toList());
   }
 
   Future<void> updateProfile(UserModel model) async {
