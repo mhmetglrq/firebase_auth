@@ -3,6 +3,7 @@ import 'package:flutter_auth_app/models/user_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../models/article_model.dart';
+import '../../../models/code_model.dart';
 
 final moreControllerProvider = Provider((ref) {
   final moreRepository = ref.watch(moreRepositoryProvider);
@@ -27,6 +28,10 @@ class MoreController {
     return moreRepository.getArticles();
   }
 
+  Stream<List<CodeModel>> getCodes() {
+    return moreRepository.getCodes();
+  }
+
   Future<UserModel> getUser() async {
     return await moreRepository.getUser();
   }
@@ -34,5 +39,9 @@ class MoreController {
   Future<void> updateProfile(UserModel model) async {
     await moreRepository.updateProfile(model);
     ref.refresh(moreControllerProvider).getUser();
+  }
+
+  Future<void> writeCode(CodeModel model) async {
+    await moreRepository.writeCode(model);
   }
 }

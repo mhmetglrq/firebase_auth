@@ -70,7 +70,12 @@ class More extends ConsumerWidget {
                       ),
                       MenuItem(
                         title: "Let's try the coding page!",
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context, AppRouteNames.writeCode,
+                              arguments: {
+                                "currentUser": userModel,
+                              });
+                        },
                         leadingAsset: codeSvg,
                       ),
                       MenuItem(
@@ -83,7 +88,10 @@ class More extends ConsumerWidget {
                       ),
                       MenuItem(
                         title: "Your code repos",
-                        onTap: () {},
+                        onTap: () => Navigator.pushNamed(
+                          context,
+                          AppRouteNames.yourCodeRepos,
+                        ),
                         leadingAsset: codeSvg,
                       ),
                       const SubTitleWidget(

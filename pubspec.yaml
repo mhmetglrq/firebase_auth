@@ -23,6 +23,7 @@ dependencies:
   image_picker: ^1.0.4
   uuid: ^4.2.1
   intl: ^0.18.1
+  flutter_code_editor: ^0.3.1
 
 dev_dependencies:
   flutter_test:

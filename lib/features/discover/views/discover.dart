@@ -5,6 +5,7 @@ import 'package:flutter_auth_app/features/widgets/content_listview.dart';
 
 import '../../../common/sizes.dart';
 import '../../widgets/appbar_with_title.dart';
+import '../../widgets/code_listview.dart';
 import '../../widgets/subtitle_widget.dart';
 
 class Discover extends StatelessWidget {
@@ -62,7 +63,7 @@ class Discover extends StatelessWidget {
               ),
               const Expanded(
                 flex: 2,
-                child: ContentListView(),
+                child: CodeListView(),
               )
             ],
           ),
